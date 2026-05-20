@@ -1,0 +1,26 @@
+#include <vector>
+#include <queue>
+
+void bfs(int start, std::vector<bool> &visited, std::vector<std::vector<int> > &list_adj, std::vector<int> &dist) {
+    std::deque<int> que;
+
+    que.push_back(start);
+    visited[start] = 1;
+
+    int vert;
+    for (; !que.empty();) {
+        vert = que.front();
+        que.pop_front();
+
+
+        for (int neig: list_adj[vert]) {
+            if (list_adj[vert][neig]) {
+                if (visited[neig] == 0) {
+                    visited[neig] = 1;
+                    que.push_back(neig);
+                    dist[neig] = dist[vert] + 1;
+                }
+            }
+        }
+    }
+}
